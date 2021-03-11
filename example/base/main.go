@@ -14,7 +14,7 @@ func main() {
 	}
 
 	go func() {
-		updater := selfupdater.NewSelfUpdate(selfupdater.NewS3UpdateProvider(
+		updater := selfupdater.NewSelfUpdater(selfupdater.NewS3UpdateProvider(
 			"selfupdater-tomasen",
 			"us-east-1",
 			"/selfupdater",

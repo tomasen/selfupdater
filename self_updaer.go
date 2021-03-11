@@ -28,7 +28,7 @@ type UpdateProvider interface {
 	Hash() hash.Hash
 }
 
-func NewSelfUpdate(provider UpdateProvider) *SelfUpdater {
+func NewSelfUpdater(provider UpdateProvider) *SelfUpdater {
 	ex, err := os.Executable()
 	if err != nil {
 		log.Fatalln(err)
