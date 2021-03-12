@@ -46,7 +46,7 @@ feed it to `NewSelfUpdate(provider UpdateProvider)`.
    
    `./bin/selfupdater`
 
-5. The base is expected to be update to the updated version, with stdout like
+5. The base is expected to be updated to the update version, with stdout like
    ```
    ...
    this is the base version
