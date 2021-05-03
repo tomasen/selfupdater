@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 )
 
 type SelfUpdater struct {
@@ -67,7 +68,7 @@ func (s *SelfUpdater) Update() error {
 	if err != nil {
 		return errors.WithMessage(err, "unable to obtain remote checksum")
 	}
-
+	remoteChecksum = strings.TrimSpace(remoteChecksum)
 	if remoteChecksum == s.LocalExecutableChecksum {
 		return nil
 	}
@@ -107,7 +108,7 @@ func (s *SelfUpdater) realUpdate(remoteChecksum string) error {
 	tempChecksum := fmt.Sprintf("%x", h.Sum(nil))
 
 	if tempChecksum != remoteChecksum {
-		return errors.New("checksum error on downloaded file")
+		return errors.New("checksum error on downloaded file: " + tempChecksum + " != " + remoteChecksum)
 	}
 
 	info, err := os.Stat(s.LocalExecutablePath)
