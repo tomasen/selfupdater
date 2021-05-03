@@ -10,6 +10,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"syscall"
 )
 
 type SelfUpdater struct {
@@ -112,7 +113,10 @@ func (s *SelfUpdater) realUpdate(remoteChecksum string) error {
 	}
 
 	info, err := os.Stat(s.LocalExecutablePath)
-	log.Println(info.Mode())
+
+	// TODO: only unlink when busy text file
+	// check robust_unlink robust_rename in rsync source code
+	syscall.Unlink(s.LocalExecutablePath)
 
 	dest, err := os.OpenFile(s.LocalExecutablePath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, info.Mode())
 	if err != nil {
