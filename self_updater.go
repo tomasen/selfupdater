@@ -114,7 +114,7 @@ func (s *SelfUpdater) realUpdate(remoteChecksum string) error {
 	info, err := os.Stat(s.LocalExecutablePath)
 	log.Println(info.Mode())
 
-	dest, err := os.OpenFile(s.LocalExecutablePath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, info.Mode())
+	dest, err := os.OpenFile(s.LocalExecutablePath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, info.Mode())
 	if err != nil {
 		return errors.WithMessage(err, "error while opening current executable file for overwrite")
 	}
